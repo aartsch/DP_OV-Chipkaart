@@ -4,8 +4,10 @@ import java.sql.*;
 import java.util.List;
 
 public abstract class ReizigerDAOPsql implements ReizigerDAO {
-
-
+    public AdresDAO adao;
+    public AdresDAO getAdresDAO() {
+        return adao;
+    }
     @Override
     public List<Reiziger> findAll() {
         Connection connection = Main.getConnection();

@@ -33,5 +33,25 @@ public class Main {
 
         // Voeg aanvul
     }
+
+    private static void testAdresDAO(AdresDAO adao) throws SQLException {
+        System.out.println("\n---------- Test AdresDAO -------------");
+
+
+        List<Adres> adres = adao.findAll();
+        System.out.println("[Test] adresDAO.findAll() geeft de volgende Adressen:");
+        for (Adres a : adres) {
+            System.out.println(a);
+        }
+        System.out.println();
+
+        Adres zuidzijde= new Adres(1, "3405CM");
+        System.out.print("[Test] Eerst " + adres.size() + " adresseen, na ReizigerDAO.save() ");
+        adao.save(zuidzijde);
+        adres = adao.findAll();
+        System.out.println(adres.size() + "adres\n");
+
+        // Voeg aanvul
+    }
 }
 

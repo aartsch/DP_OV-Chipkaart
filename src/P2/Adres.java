@@ -4,6 +4,11 @@ public class Adres {
     private int id;
     private String postcode;
 
+    public Adres(int id, String postcode) {
+        this.id = id;
+        this.postcode = postcode;
+    }
+
     public String getPostcode() {
         return postcode;
     }
@@ -12,5 +17,10 @@ public class Adres {
         this.postcode = postcode;
     }
 
+    public String toString() {
+        String s = " ";
+        return id + "heeft" + postcode;
+
+    }
 
 }
