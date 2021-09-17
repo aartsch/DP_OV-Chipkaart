@@ -5,7 +5,7 @@ import java.sql.*;
 public class Main {
 
     public static void main(String[] args) {
-        String url = "jbdc:postgresql://localhost/bedrijf?user=postgres&pzassword=password";
+        String url = "jbdc:postgresql://localhost/bedrijf?user=postgres&password=password";
 
         try {
             Connection conn = DriverManager.getConnection(url);

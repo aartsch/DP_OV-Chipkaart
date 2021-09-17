@@ -1,4 +1,7 @@
-package P2;
+package P2enP3.DAO;
+
+import P2enP3.Domein.Adres;
+import P2enP3.Domein.Reiziger;
 
 import java.util.List;
 
