@@ -180,6 +180,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
             adao.save(adres);
             OVChipkaart ovchip = (OVChipkaart) odao.findByReiziger(reiziger);
             if(ovchip != null) {
+                reiziger.addOvChipkaart(ovchip);
                 odao.save(ovchip);
             }
 
