@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ReizigerDAO {
 
-    boolean save(Reiziger reiziger);
-    boolean update(Reiziger reiziger);
-    boolean delete(Reiziger reiziger);
-    Reiziger findById(int id);
-    List<Reiziger> findByGbdatum(Date datum);
-    List<Reiziger> findAll();
+    public boolean save(Reiziger reiziger);
+    public boolean update(Reiziger reiziger);
+    public boolean delete(Reiziger reiziger);
+    public Reiziger findById(int id);
+    public List<Reiziger> findByGbdatum(Date datum);
+    public List<Reiziger> findAll();
 
 }

@@ -27,9 +27,9 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             int execute = ps.executeUpdate();
 
             if(execute == 1) {
+                ps.close();
                 return true;
             }
-            ps.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -49,9 +49,10 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             int i = ps.executeUpdate();
 
             if(i == 1) {
+                ps.close();
                 return true;
             }
-            ps.close();
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -65,9 +66,10 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             int i = statement.executeUpdate("DELETE FROM ovchipkaart WHERE kaart_nummer=" + ovChipkaart.getKaartNummer());
 
             if(i == 1) {
+                statement.close();
                 return true;
             }
-            statement.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -94,7 +96,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
                 klasse = rs.getInt("klasse");
                 saldo = rs.getDouble("saldo");
                 reizigerId = rs.getInt("reiziger_id");
-                OVChipkaart ovchip1 = new OVChipkaart(kaartNummer, geldigTot, klasse, saldo, reizigerId);
+                OVChipkaart ovchip1 = new OVChipkaart(kaartNummer, geldigTot, klasse, saldo, reiziger);
                 ovChipkaarten.add(ovchip1);
             }
             rs.close();
@@ -125,7 +127,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
                 klasse = rs.getInt("klasse");
                 saldo = rs.getDouble("saldo");
                 reizigerId = rs.getInt("reiziger_id");
-                OVChipkaart ovchip1 = new OVChipkaart(kaartNummer, geldigTot, klasse, saldo, reizigerId);
+                OVChipkaart ovchip1 = new OVChipkaart(kaartNummer, geldigTot, klasse, saldo, null );
                 ovChipkaarten.add(ovchip1);
 
             }

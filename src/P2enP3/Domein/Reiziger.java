@@ -49,6 +49,26 @@ public class Reiziger {
         return achternaam;
     }
 
+    public void addOvChipkaart(OVChipkaart ovChipkaart) {
+        ovChipkaarten.add(ovChipkaart);
+    }
+
+    public void deleteOvChipkaart(OVChipkaart ovChipkaart) {
+        for(OVChipkaart i : ovChipkaarten) {
+            if(i == ovChipkaart) {
+                ovChipkaarten.remove(i);
+            }
+        }
+    }
+
+    public OVChipkaart getOvChipkaarten() {
+        return (OVChipkaart) ovChipkaarten;
+    }
+
+    public void setOvChipkaarten(List<OVChipkaart> ovChipkaarten) {
+        this.ovChipkaarten = ovChipkaarten;
+    }
+
     public String toString() {
         return "Reiziger{" +
                 "id=" + id +
@@ -56,6 +76,6 @@ public class Reiziger {
                 ", tussenvoegsel='" + tussenvoegsel + '\'' +
                 ", achternaam='" + achternaam + '\'' +
                 ", geboortedatum=" + geboortedatum +
-                '}';
+                " " + adres + " " + ovChipkaarten ;
     }
 }

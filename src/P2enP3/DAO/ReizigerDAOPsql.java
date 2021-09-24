@@ -1,6 +1,9 @@
 package P2enP3.DAO;
 
+import P2enP3.Domein.Adres;
 import P2enP3.Domein.Reiziger;
+import P4.DAO.OVChipkaartDAO;
+import P4.Domein.OVChipkaart;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,6 +12,7 @@ import java.util.List;
 public class ReizigerDAOPsql implements ReizigerDAO {
     private Connection conn;
     private AdresDAO adao;
+    private OVChipkaartDAO odao;
 
     public ReizigerDAOPsql(Connection conn) {
         this.conn = conn;
@@ -36,6 +40,8 @@ public class ReizigerDAOPsql implements ReizigerDAO {
                 System.out.println(reizigerId + "." + voorletters + " " + tussenvoegsel + " " + achternaam + " " + geboortedatum);
                 Reiziger reiziger1 = new Reiziger(reizigerId, voorletters , tussenvoegsel , achternaam , geboortedatum);
                 reizigers.add(reiziger1);
+                adao.findByReiziger(reiziger1);
+                odao.findAll();
             }
             rs.close();
             statement.close();
@@ -59,7 +65,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
             ps.setDate(1, datum);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 reizigerId = rs.getInt("reiziger_id");
                 voorletters = rs.getString("voorletters");
                 tussenvoegsel = rs.getString("tussenvoegsel");
@@ -68,13 +74,15 @@ public class ReizigerDAOPsql implements ReizigerDAO {
                 System.out.println(reizigerId + "." + voorletters + " " + tussenvoegsel + " " + achternaam + " " + geboortedatum);
                 Reiziger reiziger1 = new Reiziger(reizigerId, voorletters , tussenvoegsel , achternaam , geboortedatum);
                 reizigers.add(reiziger1);
+                adao.findByReiziger(reiziger1);
+                odao.findByReiziger(reiziger1);
             }
             rs.close();
             ps.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
+        return reizigers;
 
     }
 
@@ -98,13 +106,19 @@ public class ReizigerDAOPsql implements ReizigerDAO {
                     achternaam = rs.getString("achternaam");
                     geboortedatum = rs.getDate("geboortedatum");
                     System.out.println(reizigerId + "." + voorletters + " " + tussenvoegsel + " " + achternaam + " " + geboortedatum);
+                    Reiziger reiziger1 = new Reiziger(reizigerId, voorletters , tussenvoegsel , achternaam , geboortedatum);
+                    return reiziger1;
                 }
+
+
+
+
                 rs.close();
                 ps.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            return null;
+            return null ;
 
         }
 
@@ -117,6 +131,9 @@ public class ReizigerDAOPsql implements ReizigerDAO {
             if(i == 1) {
                 return true;
             }
+            Adres adres = adao.findByReiziger(reiziger);
+            adao.delete(adres);
+            reiziger.deleteOvChipkaart(reiziger.getOvChipkaarten());
             statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -134,7 +151,14 @@ public class ReizigerDAOPsql implements ReizigerDAO {
 
             if(i == 1) {
                 return true;
-        }
+            }
+            Adres adres = adao.findByReiziger(reiziger);
+            adao.update(adres);
+            OVChipkaart ovchip = (OVChipkaart) odao.findByReiziger(reiziger);
+            if(ovchip != null) {
+                odao.update(ovchip);
+            }
+
             ps.close();
 
     } catch (SQLException throwables) {
@@ -152,6 +176,13 @@ public class ReizigerDAOPsql implements ReizigerDAO {
             ps.setString(4, reiziger.getNaam());
             ps.setDate(5, reiziger.getGeboortedatum());
             int execute = ps.executeUpdate();
+            Adres adres = adao.findByReiziger(reiziger);
+            adao.save(adres);
+            OVChipkaart ovchip = (OVChipkaart) odao.findByReiziger(reiziger);
+            if(ovchip != null) {
+                odao.save(ovchip);
+            }
+
 
             if(execute == 1) {
                 return true;

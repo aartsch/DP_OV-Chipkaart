@@ -75,11 +75,22 @@ public class Main {
         System.out.println();
 
         String gbdatum = "1981-03-14";
-        Adres sietske = new Adres(77, "3405CM");
+        Reiziger sietske = new Reiziger(77, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
+        Adres adres2 = new Adres(77, "3405CM", 363, "zuidzijde", "Benschop", sietske);
         System.out.print("[Test] Eerst " + adres.size() + " adressen, na AdresDAO.save() ");
-        adao.save(sietske);
+        adao.save(adres2);
         adres = adao.findAll();
         System.out.println(adres.size() + " adressen\n");
+
+        System.out.println("\n---------- Test AdresDAO -------------");
+
+        // Haal alle reizigers op uit de database
+        Adres adres4 = adao.findByReiziger(sietske);
+        System.out.println(adres4);
+        System.out.println("[Test] AdresDAO.findBYid() geeft de volgende reizigers:");
+
+        System.out.println();
+
 
         // Voeg aanvullende tests van de ontbrekende CRUD-operaties in.
     }

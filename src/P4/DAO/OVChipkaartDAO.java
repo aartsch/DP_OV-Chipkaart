@@ -6,9 +6,9 @@ import P4.Domein.OVChipkaart;
 import java.util.List;
 
 public interface OVChipkaartDAO {
-    boolean save(OVChipkaart ovChipkaart);
-    boolean update(OVChipkaart ovChipkaart);
-    boolean delete(OVChipkaart ovChipkaart);
-    List<OVChipkaart> findByReiziger(Reiziger reiziger);
-    List<OVChipkaart> findAll();
+    public boolean save(OVChipkaart ovChipkaart);
+    public boolean update(OVChipkaart ovChipkaart);
+    public boolean delete(OVChipkaart ovChipkaart);
+    public List<OVChipkaart> findByReiziger(Reiziger reiziger);
+    public List<OVChipkaart> findAll();
 }
