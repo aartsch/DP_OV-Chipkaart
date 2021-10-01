@@ -40,8 +40,10 @@ public class ReizigerDAOPsql implements ReizigerDAO {
                 System.out.println(reizigerId + "." + voorletters + " " + tussenvoegsel + " " + achternaam + " " + geboortedatum);
                 Reiziger reiziger1 = new Reiziger(reizigerId, voorletters , tussenvoegsel , achternaam , geboortedatum);
                 reizigers.add(reiziger1);
-                adao.findByReiziger(reiziger1);
-                odao.findAll();
+                Adres a1 = adao.findByReiziger(reiziger1);
+                OVChipkaart op1 = (OVChipkaart) odao.findByReiziger(reiziger1);
+                reiziger1.addOvChipkaart(op1);
+                reiziger1.setAdres(a1);
             }
             rs.close();
             statement.close();
@@ -74,8 +76,10 @@ public class ReizigerDAOPsql implements ReizigerDAO {
                 System.out.println(reizigerId + "." + voorletters + " " + tussenvoegsel + " " + achternaam + " " + geboortedatum);
                 Reiziger reiziger1 = new Reiziger(reizigerId, voorletters , tussenvoegsel , achternaam , geboortedatum);
                 reizigers.add(reiziger1);
-                adao.findByReiziger(reiziger1);
-                odao.findByReiziger(reiziger1);
+                Adres a1 = adao.findByReiziger(reiziger1);
+                OVChipkaart op1 = (OVChipkaart) odao.findByReiziger(reiziger1);
+                reiziger1.addOvChipkaart(op1);
+                reiziger1.setAdres(a1);
             }
             rs.close();
             ps.close();
@@ -107,6 +111,10 @@ public class ReizigerDAOPsql implements ReizigerDAO {
                     geboortedatum = rs.getDate("geboortedatum");
                     System.out.println(reizigerId + "." + voorletters + " " + tussenvoegsel + " " + achternaam + " " + geboortedatum);
                     Reiziger reiziger1 = new Reiziger(reizigerId, voorletters , tussenvoegsel , achternaam , geboortedatum);
+                    Adres a1 = adao.findByReiziger(reiziger1);
+                    OVChipkaart op1 = (OVChipkaart) odao.findByReiziger(reiziger1);
+                    reiziger1.addOvChipkaart(op1);
+                    reiziger1.setAdres(a1);
                     return reiziger1;
                 }
 

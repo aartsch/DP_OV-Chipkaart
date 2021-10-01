@@ -1,8 +1,10 @@
 package P4.Domein;
 
 import P2enP3.Domein.Reiziger;
+import P5.Domein.Product;
 
 import java.sql.Date;
+import java.util.List;
 
 public class OVChipkaart {
 
@@ -11,7 +13,7 @@ public class OVChipkaart {
     private Date geldigTot;
     private int klasse;
     private double saldo;
-    private int reizigerId;
+    private List<Product> producten;
 
     public OVChipkaart(int kaartNummer, Date geldigTot, int klasse, double saldo, Reiziger reiziger) {
         this.kaartNummer = kaartNummer;
@@ -61,13 +63,33 @@ public class OVChipkaart {
         this.saldo = saldo;
     }
 
-    public int getReizigerId() {
-        return reizigerId;
+    public Reiziger getReiziger() {
+        return reiziger;
     }
 
-    public void setReizigerId(int reizigerId) {
-        this.reizigerId = reizigerId;
+    public void setReiziger(Reiziger reiziger) {
+        this.reiziger = reiziger;
     }
+
+    public List<Product> getProducten() {
+        return producten;
+    }
+
+    public void setProducten(List<Product> producten) {
+        this.producten = producten;
+    }
+
+    public void addProduct(Product product) {
+        producten.add(product);
+        product.getOvChipkaarten().add(this);
+    }
+
+    public void deleteProduct(Product product) {
+        producten.remove(product);
+        product.getOvChipkaarten().remove(this);
+    }
+
+
 
     @Override
     public String toString() {
@@ -77,7 +99,6 @@ public class OVChipkaart {
                 ", geldigTot=" + geldigTot +
                 ", klasse=" + klasse +
                 ", saldo=" + saldo +
-                ", reizigerId=" + reizigerId +
                 '}';
     }
 }

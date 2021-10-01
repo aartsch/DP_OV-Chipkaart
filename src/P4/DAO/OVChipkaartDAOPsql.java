@@ -2,6 +2,8 @@ package P4.DAO;
 
 import P2enP3.Domein.Reiziger;
 import P4.Domein.OVChipkaart;
+import P5.DAO.ProductDAO;
+import P5.Domein.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.List;
 
 public class OVChipkaartDAOPsql implements OVChipkaartDAO {
     private Connection conn;
+    private ProductDAO pdao;
 
     public OVChipkaartDAOPsql(Connection conn) {
         this.conn = conn;
@@ -23,8 +26,11 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             ps.setDate(2, ovChipkaart.getGeldigTot());
             ps.setInt(3, ovChipkaart.getKlasse());
             ps.setDouble(4, ovChipkaart.getSaldo());
-            ps.setInt(5, ovChipkaart.getReizigerId());
+            ps.setInt(5, ovChipkaart.getReiziger().getId());
             int execute = ps.executeUpdate();
+
+            pdao.save((Product) ovChipkaart.getProducten());
+
 
             if(execute == 1) {
                 ps.close();
@@ -44,7 +50,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             ps.setDate(2, ovChipkaart.getGeldigTot());
             ps.setInt(3, ovChipkaart.getKlasse());
             ps.setDouble(4, ovChipkaart.getSaldo());
-            ps.setInt(5, ovChipkaart.getReizigerId());
+            ps.setInt(5, ovChipkaart.getReiziger().getId());
 
             int i = ps.executeUpdate();
 
@@ -64,6 +70,9 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
         try {
             Statement statement = conn.createStatement();
             int i = statement.executeUpdate("DELETE FROM ovchipkaart WHERE kaart_nummer=" + ovChipkaart.getKaartNummer());
+
+            pdao.delete((Product) ovChipkaart.getProducten());
+            ((Product) ovChipkaart.getProducten()).deleteOvChipkaart(ovChipkaart);
 
             if(i == 1) {
                 statement.close();

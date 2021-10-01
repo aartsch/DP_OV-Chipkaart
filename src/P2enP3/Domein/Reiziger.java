@@ -41,6 +41,11 @@ public class Reiziger {
         this.id = id;
     }
 
+
+    public void setAdres(Adres adres) {
+        this.adres = adres;
+    }
+
     public Adres getAdres() {
         return adres;
     }
