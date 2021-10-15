@@ -81,7 +81,6 @@ public class OVChipkaart {
 
     public void addProduct(Product product) {
         producten.add(product);
-        product.getOvChipkaarten().add(this);
     }
 
     public void deleteProduct(Product product) {

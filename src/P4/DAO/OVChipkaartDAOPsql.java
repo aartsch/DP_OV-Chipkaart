@@ -29,7 +29,6 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             ps.setInt(5, ovChipkaart.getReiziger().getId());
             int execute = ps.executeUpdate();
 
-            pdao.save((Product) ovChipkaart.getProducten());
 
 
             if(execute == 1) {
@@ -71,8 +70,6 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             Statement statement = conn.createStatement();
             int i = statement.executeUpdate("DELETE FROM ovchipkaart WHERE kaart_nummer=" + ovChipkaart.getKaartNummer());
 
-            pdao.delete((Product) ovChipkaart.getProducten());
-            ((Product) ovChipkaart.getProducten()).deleteOvChipkaart(ovChipkaart);
 
             if(i == 1) {
                 statement.close();
@@ -107,6 +104,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
                 reizigerId = rs.getInt("reiziger_id");
                 OVChipkaart ovchip1 = new OVChipkaart(kaartNummer, geldigTot, klasse, saldo, reiziger);
                 ovChipkaarten.add(ovchip1);
+                ovchip1.getProducten().addOvChipkaart(ovchip1.getKaartNummer());
             }
             rs.close();
             ps.close();
@@ -138,8 +136,10 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
                 reizigerId = rs.getInt("reiziger_id");
                 OVChipkaart ovchip1 = new OVChipkaart(kaartNummer, geldigTot, klasse, saldo, null );
                 ovChipkaarten.add(ovchip1);
+                ovchip1.getProducten().addOvChipkaart(ovchip1.getKaartNummer());
 
             }
+
             rs.close();
             statement.close();
         } catch (SQLException throwables) {

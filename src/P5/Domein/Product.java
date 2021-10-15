@@ -9,7 +9,7 @@ public class Product {
     private String naam;
     private String beschrijving;
     private int prijs;
-    private List<OVChipkaart>  ovChipkaarten;
+    private List<Integer>  ovChipkaarten; // moet int worden (ovchipkaart nummers)
 
     public Product(int productNummer, String naam, String beschrijving, int prijs) {
         this.productNummer = productNummer;
@@ -50,15 +50,15 @@ public class Product {
         this.prijs = prijs;
     }
 
-    public void addOvChipkaart(OVChipkaart ovChipkaart) {
+    public void addOvChipkaart(int ovChipkaart) {
         ovChipkaarten.add(ovChipkaart);
     }
 
-    public void deleteOvChipkaart(OVChipkaart ovChipkaart) {
+    public void deleteOvChipkaart(int ovChipkaart) {
         ovChipkaarten.remove(ovChipkaart);
     }
 
-    public List<OVChipkaart> getOvChipkaarten() {
+    public List<Integer> getOvChipkaarten() {
         return ovChipkaarten;
     }
 
